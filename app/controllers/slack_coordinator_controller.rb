@@ -7,6 +7,7 @@ class SlackCoordinatorController < ApplicationController
     '.win' => 'Record a win for the current game',
     '.stats' => 'View personal stats',
     '.rankings' => 'View leaderboard',
+    '.randomize' => 'Suggest random teams for the current game',
     '.help' => 'View this help message'
   }.freeze
 
@@ -100,6 +101,13 @@ class SlackCoordinatorController < ApplicationController
         json_result[:text] += rankings
       else
         json_result[:text] = "No players have played #{User::GAMES_NEEDED_FOR_RANKING} games."
+      end
+
+    when 'randomize'
+      begin
+        json_result[:text] = SuggestRandomTeamsService.suggest
+      rescue SuggestRandomTeamsService::NoGameInProgressError
+        json_result[:text] = 'Cannot randomize teams when there is no game in progress.'
       end
 
     when 'help'
