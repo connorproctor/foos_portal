@@ -8,6 +8,5 @@ class SuggestRandomTeamsService
 
     players_shuffled = game.players.map(&:slack_user_name).shuffle
     "Randomized matchup: #{players_shuffled[0]} and #{players_shuffled[1]} vs. #{players_shuffled[2]} and #{players_shuffled[3]}"
-    end
   end
 end
