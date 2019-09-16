@@ -103,7 +103,7 @@ class SlackCoordinatorController < ApplicationController
         json_result[:text] = "No players have played #{User::GAMES_NEEDED_FOR_RANKING} games."
       end
 
-    when 'randomize'
+    when 'randomize', 'random'
       begin
         json_result[:text] = SuggestRandomTeamsService.suggest
       rescue SuggestRandomTeamsService::NoGameInProgressError
